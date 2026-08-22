@@ -1443,3 +1443,96 @@ if (document.getElementById("adminContent")) {
     showAdminSection("overview");
 
 }
+function showSignup() {
+
+    const signupBox = document.getElementById("signupBox");
+
+    if (signupBox.style.display === "none") {
+        signupBox.style.display = "block";
+    } else {
+        signupBox.style.display = "none";
+    }
+}
+
+
+function signup() {
+
+    const employeeId =
+        document.getElementById("signupEmployeeId").value.trim();
+
+    const email =
+        document.getElementById("signupEmail").value.trim();
+
+    const password =
+        document.getElementById("signupPassword").value;
+
+    const role =
+        document.getElementById("signupRole").value;
+
+    const message =
+        document.getElementById("signupMessage");
+
+
+    if (!employeeId || !email || !password) {
+
+        message.textContent =
+            "Please fill all fields.";
+
+        return;
+    }
+
+
+    if (password.length < 6) {
+
+        message.textContent =
+            "Password must contain at least 6 characters.";
+
+        return;
+    }
+
+
+    const users =
+        JSON.parse(localStorage.getItem("users")) || [];
+
+
+    const existingUser =
+        users.find(user => user.employeeId === employeeId);
+
+
+    if (existingUser) {
+
+        message.textContent =
+            "Employee ID already exists.";
+
+        return;
+    }
+
+
+    const newUser = {
+
+        employeeId: employeeId,
+        email: email,
+        password: password,
+        role: role
+
+    };
+
+
+    users.push(newUser);
+
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+    );
+
+
+    message.textContent =
+        "Account created successfully! You can now sign in.";
+
+
+    document.getElementById("signupEmployeeId").value = "";
+    document.getElementById("signupEmail").value = "";
+    document.getElementById("signupPassword").value = "";
+
+}
