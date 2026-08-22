@@ -1,120 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dayflow - HR Dashboard</title>
+
+    <title>Dayflow | HR Admin</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="dashboard-body">
 
-    <div class="dashboard">
+<div class="app-layout">
 
-        <header class="topbar">
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="small-logo">D</div>
 
             <div>
-                <h1>Dayflow</h1>
-                <p>HR Management Dashboard</p>
+                <h2>Dayflow</h2>
+                <span>HR / Admin</span>
             </div>
 
-            <button class="logout-btn" onclick="logout()">Logout</button>
-
-        </header>
-
-        <main>
-
-            <div class="welcome-card">
-
-                <h2>Good morning, HR Admin 👋</h2>
-
-                <p>
-                    Manage your workforce, attendance, leave and payroll
-                    from one place.
-                </p>
-
-            </div>
+        </div>
 
 
-            <div class="dashboard-grid">
+        <nav class="sidebar-nav">
 
-                <div class="dashboard-card">
+            <button onclick="showAdminSection('overview')" class="nav-item active">
+                <span>⌂</span>
+                Overview
+            </button>
 
-                    <h3>👥 Employees</h3>
+            <button onclick="showAdminSection('employees')" class="nav-item">
+                <span>👥</span>
+                Employees
+            </button>
 
-                    <p>
-                        Manage employee profiles and workforce information.
-                    </p>
+            <button onclick="showAdminSection('attendance')" class="nav-item">
+                <span>🕘</span>
+                Attendance
+            </button>
 
-                    <button onclick="showAdminSection('employees')">
-                        Manage Employees
-                    </button>
+            <button onclick="showAdminSection('leave')" class="nav-item">
+                <span>📅</span>
+                Leave Requests
+            </button>
 
-                </div>
+            <button onclick="showAdminSection('payroll')" class="nav-item">
+                <span>💰</span>
+                Payroll
+            </button>
 
-
-                <div class="dashboard-card">
-
-                    <h3>🕘 Attendance</h3>
-
-                    <p>
-                        Monitor employee attendance and work hours.
-                    </p>
-
-                    <button onclick="showAdminSection('attendance')">
-                        View Attendance
-                    </button>
-
-                </div>
+        </nav>
 
 
-                <div class="dashboard-card">
+        <div class="sidebar-bottom">
 
-                    <h3>📅 Leave Requests</h3>
+            <div class="mini-user">
 
-                    <p>
-                        Review and approve employee leave requests.
-                    </p>
+                <div class="avatar admin-avatar">A</div>
 
-                    <button onclick="showAdminSection('leave')">
-                        Review Requests
-                    </button>
-
-                </div>
-
-
-                <div class="dashboard-card">
-
-                    <h3>💰 Payroll</h3>
-
-                    <p>
-                        Manage salary information and payroll records.
-                    </p>
-
-                    <button onclick="showAdminSection('payroll')">
-                        Manage Payroll
-                    </button>
-
+                <div>
+                    <strong>HR Admin</strong>
+                    <span>Human Resources</span>
                 </div>
 
             </div>
 
+            <button onclick="logout()" class="logout-side">
+                ↪ Logout
+            </button>
 
-            <div id="adminContent" class="content-section">
+        </div>
 
-                <h2>HR Overview</h2>
+    </aside>
 
-                <p>
-                    Select a management option above to get started.
-                </p>
 
-            </div>
+    <main class="main-content">
 
-        </main>
+        <div id="adminContent"></div>
 
-    </div>
+    </main>
 
-    <script src="script.js"></script>
+</div>
+
+<script src="script.js"></script>
 
 </body>
 </html>

@@ -3,38 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dayflow - HRMS</title>
+    <title>Dayflow | HRMS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="login-page">
 
-    <div class="login-container">
+    <div class="login-wrapper">
+
+        <div class="login-brand">
+            <div class="brand-logo">D</div>
+
+            <h1>Dayflow</h1>
+
+            <p>Human Resource Management System</p>
+
+            <span>
+                Simple people management for modern teams.
+            </span>
+        </div>
 
         <div class="login-box">
 
-            <h1>Dayflow</h1>
-            <p class="subtitle">Human Resource Management System</p>
+            <div class="login-heading">
+                <h2>Welcome back</h2>
+                <p>Sign in to continue to your workspace.</p>
+            </div>
 
             <form id="loginForm">
 
-                <label>Employee ID</label>
-                <input type="text" id="employeeId" placeholder="Enter Employee ID" required>
+                <label for="employeeId">Employee ID</label>
 
-                <label>Password</label>
-                <input type="password" id="password" placeholder="Enter Password" required>
+                <input
+                    type="text"
+                    id="employeeId"
+                    placeholder="Enter Employee ID"
+                    autocomplete="username"
+                >
 
-                <label>Login As</label>
+                <label for="password">Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                    autocomplete="current-password"
+                >
+
+                <label for="role">Login as</label>
+
                 <select id="role">
                     <option value="employee">Employee</option>
                     <option value="hr">HR / Admin</option>
                 </select>
 
-                <button type="submit">Login</button>
+                <button type="submit" class="primary-btn login-btn">
+                    Sign In
+                </button>
 
             </form>
 
-            <p id="loginMessage"></p>
+            <p id="loginMessage" class="login-message"></p>
 
         </div>
 

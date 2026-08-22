@@ -1,75 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dayflow - Employee Dashboard</title>
+    <title>Dayflow | Employee</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="dashboard-body">
 
-    <div class="dashboard">
+<div class="app-layout">
 
-        <header class="topbar">
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="small-logo">D</div>
+
             <div>
-                <h1>Dayflow</h1>
-                <p>Employee Dashboard</p>
+                <h2>Dayflow</h2>
+                <span>Employee Portal</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <button onclick="showEmployeeSection('overview')" class="nav-item active">
+                <span>⌂</span>
+                Overview
+            </button>
+
+            <button onclick="showEmployeeSection('profile')" class="nav-item">
+                <span>👤</span>
+                My Profile
+            </button>
+
+            <button onclick="showEmployeeSection('attendance')" class="nav-item">
+                <span>🕘</span>
+                Attendance
+            </button>
+
+            <button onclick="showEmployeeSection('leave')" class="nav-item">
+                <span>📅</span>
+                Leave Requests
+            </button>
+
+            <button onclick="showEmployeeSection('salary')" class="nav-item">
+                <span>💰</span>
+                Salary
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="mini-user">
+                <div class="avatar">R</div>
+
+                <div>
+                    <strong>Rahul Sharma</strong>
+                    <span>Software Developer</span>
+                </div>
             </div>
 
-            <button class="logout-btn" onclick="logout()">Logout</button>
-        </header>
+            <button onclick="logout()" class="logout-side">
+                ↪ Logout
+            </button>
 
-        <main>
+        </div>
 
-            <div class="welcome-card">
-                <h2>Welcome, Employee!</h2>
-                <p>Manage your profile, attendance and leave requests.</p>
-            </div>
+    </aside>
 
-            <div class="dashboard-grid">
 
-                <div class="dashboard-card">
-                    <h3>👤 Profile</h3>
-                    <p>View and manage your personal information.</p>
-                    <button onclick="showSection('profile')">View Profile</button>
-                </div>
+    <main class="main-content">
 
-                <div class="dashboard-card">
-                    <h3>🕘 Attendance</h3>
-                    <p>Check in, check out and view attendance.</p>
-                    <button onclick="showSection('attendance')">Attendance</button>
-                </div>
+        <div id="employeeContent"></div>
 
-                <div class="dashboard-card">
-                    <h3>📅 Leave Requests</h3>
-                    <p>Apply for leave and track your requests.</p>
-                    <button onclick="showSection('leave')">Leave</button>
-                </div>
+    </main>
 
-                <div class="dashboard-card">
-                    <h3>💰 Salary</h3>
-                    <p>View your salary information.</p>
-                    <button onclick="showSection('salary')">View Salary</button>
-                </div>
+</div>
 
-            </div>
-
-            <div id="contentSection" class="content-section">
-
-                <h2>Employee Information</h2>
-
-                <p>
-                    Select an option above to view your information.
-                </p>
-
-            </div>
-
-        </main>
-
-    </div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>

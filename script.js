@@ -1,136 +1,621 @@
-document.getElementById("loginForm").addEventListener("submit", function(event) {
+/* ================= LOGIN ================= */
 
-    event.preventDefault();
+const loginForm = document.getElementById("loginForm");
 
-    const employeeId = document.getElementById("employeeId").value;
-    const password = document.getElementById("password").value;
-    const role = document.getElementById("role").value;
+if (loginForm) {
 
-    if (employeeId === "" || password === "") {
-        document.getElementById("loginMessage").textContent =
-            "Please enter Employee ID and Password.";
-        return;
-    }
+    loginForm.addEventListener("submit", function(event) {
 
-    localStorage.setItem("employeeId", employeeId);
-    localStorage.setItem("role", role);
+        event.preventDefault();
 
-    if (role === "employee") {
-        window.location.href = "employee.html";
-    } else {
-        window.location.href = "admin.html";
-    }
-});
-function showSection(section) {
+        const employeeId =
+            document.getElementById("employeeId").value.trim();
 
-    const content = document.getElementById("contentSection");
+        const password =
+            document.getElementById("password").value.trim();
 
-    if (section === "profile") {
+        const role =
+            document.getElementById("role").value;
+
+        const message =
+            document.getElementById("loginMessage");
+
+
+        if (employeeId === "" || password === "") {
+
+            message.textContent =
+                "Please enter your Employee ID and Password.";
+
+            return;
+        }
+
+
+        localStorage.setItem("employeeId", employeeId);
+        localStorage.setItem("role", role);
+
+
+        if (role === "employee") {
+
+            window.location.href = "employee.html";
+
+        } else {
+
+            window.location.href = "admin.html";
+
+        }
+
+    });
+
+}
+
+
+/* ================= LOGOUT ================= */
+
+function logout() {
+
+    localStorage.removeItem("employeeId");
+    localStorage.removeItem("role");
+
+    window.location.href = "index.html";
+}
+
+
+/* ================= EMPLOYEE ================= */
+
+function showEmployeeSection(section) {
+
+    const content =
+        document.getElementById("employeeContent");
+
+    if (!content) return;
+
+
+    if (section === "overview") {
 
         content.innerHTML = `
-            <h2>My Profile</h2>
 
-            <div class="profile-info">
-                <p><strong>Employee ID:</strong> ${localStorage.getItem("employeeId")}</p>
-                <p><strong>Name:</strong> Rahul Sharma</p>
-                <p><strong>Email:</strong> rahul@dayflow.com</p>
-                <p><strong>Phone:</strong> +91 9876543210</p>
-                <p><strong>Department:</strong> Engineering</p>
-                <p><strong>Job Position:</strong> Software Developer</p>
+            <div class="page-header">
+                <h1>Employee Portal</h1>
+                <p>Your personal Dayflow workspace</p>
             </div>
+
+            <div class="welcome-card">
+
+                <h1>Good morning 👋</h1>
+
+                <p>
+                    Welcome back to your Dayflow workspace.
+                </p>
+
+            </div>
+
+
+            <div class="profile-card">
+
+                <div class="profile-top">
+
+                    <div class="large-avatar">
+                        R
+                    </div>
+
+                    <div>
+                        <h2>Rahul Sharma</h2>
+                        <p>Software Developer</p>
+                    </div>
+
+                </div>
+
+
+                <div class="profile-details">
+
+                    <div class="detail-box">
+                        <span>Employee ID</span>
+                        <strong>
+                            ${localStorage.getItem("employeeId") || "EMP001"}
+                        </strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Department</span>
+                        <strong>Engineering</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Today's Status</span>
+                        <strong>
+                            <span class="badge present">
+                                Present
+                            </span>
+                        </strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Work Location</span>
+                        <strong>Office</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
         `;
 
     }
+
+
+    else if (section === "profile") {
+
+        content.innerHTML = `
+
+            <div class="page-header">
+                <h1>My Profile</h1>
+                <p>View your personal and professional information.</p>
+            </div>
+
+            <div class="profile-card">
+
+                <div class="profile-top">
+
+                    <div class="large-avatar">
+                        R
+                    </div>
+
+                    <div>
+                        <h2>Rahul Sharma</h2>
+                        <p>Software Developer</p>
+                    </div>
+
+                </div>
+
+
+                <div class="profile-details">
+
+                    <div class="detail-box">
+                        <span>Employee ID</span>
+                        <strong>
+                            ${localStorage.getItem("employeeId") || "EMP001"}
+                        </strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Full Name</span>
+                        <strong>Rahul Sharma</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Email</span>
+                        <strong>rahul@dayflow.com</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Phone</span>
+                        <strong>+91 9876543210</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Department</span>
+                        <strong>Engineering</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Job Position</span>
+                        <strong>Software Developer</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Joining Date</span>
+                        <strong>15 June 2024</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Employment Type</span>
+                        <strong>Full Time</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
 
     else if (section === "attendance") {
 
         content.innerHTML = `
-            <h2>Attendance</h2>
 
-            <p><strong>Today's Status:</strong> Present</p>
+            <div class="page-header">
+                <h1>Attendance</h1>
+                <p>Track your daily attendance and working hours.</p>
+            </div>
 
-            <button onclick="checkIn()">Check In</button>
-            <button onclick="checkOut()">Check Out</button>
 
-            <h3 style="margin-top:25px;">Attendance History</h3>
+            <div class="stats-grid">
 
-            <p>22 Aug 2026 - Present</p>
-            <p>21 Aug 2026 - Present</p>
-            <p>20 Aug 2026 - Leave</p>
+                <div class="stat-card">
+                    <p>Today's Status</p>
+                    <h3>
+                        <span class="badge present">
+                            Present
+                        </span>
+                    </h3>
+                </div>
+
+                <div class="stat-card">
+                    <p>Check In</p>
+                    <h3 id="checkInTime">
+                        ${localStorage.getItem("checkIn") || "--:--"}
+                    </h3>
+                </div>
+
+                <div class="stat-card">
+                    <p>Check Out</p>
+                    <h3 id="checkOutTime">
+                        ${localStorage.getItem("checkOut") || "--:--"}
+                    </h3>
+                </div>
+
+                <div class="stat-card">
+                    <p>Attendance Rate</p>
+                    <h3>95%</h3>
+                </div>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <h2>Today's Attendance</h2>
+
+                <p>
+                    Mark your attendance for today.
+                </p>
+
+                <div class="button-row" style="margin-top:20px;">
+
+                    <button
+                        class="action-btn"
+                        onclick="checkIn()">
+                        Check In
+                    </button>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="checkOut()">
+                        Check Out
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <h2>Attendance History</h2>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>22 Aug 2026</td>
+                                <td>09:02 AM</td>
+                                <td>06:05 PM</td>
+                                <td>
+                                    <span class="badge present">
+                                        Present
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>21 Aug 2026</td>
+                                <td>09:10 AM</td>
+                                <td>06:12 PM</td>
+                                <td>
+                                    <span class="badge present">
+                                        Present
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>20 Aug 2026</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>
+                                    <span class="badge leave">
+                                        Leave
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
         `;
 
     }
+
 
     else if (section === "leave") {
 
         content.innerHTML = `
-            <h2>Apply for Leave</h2>
 
-            <label>Leave Type</label>
+            <div class="page-header">
+                <h1>Leave Requests</h1>
+                <p>Apply for leave and track your requests.</p>
+            </div>
 
-            <select id="leaveType">
-                <option>Paid Leave</option>
-                <option>Sick Leave</option>
-                <option>Unpaid Leave</option>
-            </select>
 
-            <label>From Date</label>
+            <div class="content-card">
 
-            <input type="date" id="fromDate">
+                <h2>Apply for Leave</h2>
 
-            <label>To Date</label>
+                <div class="form-grid">
 
-            <input type="date" id="toDate">
+                    <div class="form-group">
 
-            <label>Reason</label>
+                        <label>Leave Type</label>
 
-            <input type="text" id="leaveReason" placeholder="Enter reason">
+                        <select id="leaveType">
+                            <option>Paid Leave</option>
+                            <option>Sick Leave</option>
+                            <option>Unpaid Leave</option>
+                        </select>
 
-            <button onclick="applyLeave()">Submit Leave Request</button>
+                    </div>
 
-            <p id="leaveMessage"></p>
+
+                    <div class="form-group">
+
+                        <label>Reason</label>
+
+                        <input
+                            type="text"
+                            id="leaveReason"
+                            placeholder="Enter reason">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>From Date</label>
+
+                        <input
+                            type="date"
+                            id="fromDate">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>To Date</label>
+
+                        <input
+                            type="date"
+                            id="toDate">
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="action-btn"
+                    style="margin-top:20px;"
+                    onclick="applyLeave()">
+
+                    Submit Leave Request
+
+                </button>
+
+                <p id="leaveMessage"></p>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <h2>My Leave History</h2>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="leaveHistory">
+
+                            <tr>
+                                <td>Paid Leave</td>
+                                <td>24 Aug 2026</td>
+                                <td>25 Aug 2026</td>
+                                <td>Personal work</td>
+                                <td>
+                                    <span class="badge pending">
+                                        Pending
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
         `;
 
     }
+
 
     else if (section === "salary") {
 
         content.innerHTML = `
-            <h2>My Salary</h2>
 
-            <p><strong>Basic Salary:</strong> ₹35,000</p>
-            <p><strong>Allowances:</strong> ₹10,000</p>
-            <p><strong>Deductions:</strong> ₹5,000</p>
-            <hr>
-            <p><strong>Net Salary:</strong> ₹40,000</p>
+            <div class="page-header">
+                <h1>My Salary</h1>
+                <p>View your monthly salary information.</p>
+            </div>
 
-            <p style="margin-top:15px;">
-                Salary information is read-only for employees.
-            </p>
+
+            <div class="content-card">
+
+                <h2>Salary Details</h2>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Employee</th>
+                                <th>Basic</th>
+                                <th>Allowances</th>
+                                <th>Deductions</th>
+                                <th>Net Salary</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+                                    <strong>Rahul Sharma</strong>
+                                </td>
+
+                                <td>₹35,000</td>
+
+                                <td>₹10,000</td>
+
+                                <td>₹5,000</td>
+
+                                <td class="salary-total">
+                                    ₹40,000
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <h2>Salary Summary</h2>
+
+                <div class="profile-details">
+
+                    <div class="detail-box">
+                        <span>Basic Salary</span>
+                        <strong>₹35,000</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Allowances</span>
+                        <strong>₹10,000</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Deductions</span>
+                        <strong>₹5,000</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Net Salary</span>
+                        <strong>₹40,000</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
         `;
+
     }
+
 }
+
+
+/* ================= EMPLOYEE ACTIONS ================= */
 
 function checkIn() {
 
-    localStorage.setItem("checkIn", new Date().toLocaleTimeString());
+    const time = new Date().toLocaleTimeString();
+
+    localStorage.setItem("checkIn", time);
 
     alert("Check-in recorded successfully!");
+
+    showEmployeeSection("attendance");
 }
+
 
 function checkOut() {
 
-    localStorage.setItem("checkOut", new Date().toLocaleTimeString());
+    const time = new Date().toLocaleTimeString();
+
+    localStorage.setItem("checkOut", time);
 
     alert("Check-out recorded successfully!");
+
+    showEmployeeSection("attendance");
 }
+
 
 function applyLeave() {
 
-    const type = document.getElementById("leaveType").value;
-    const from = document.getElementById("fromDate").value;
-    const to = document.getElementById("toDate").value;
-    const reason = document.getElementById("leaveReason").value;
+    const type =
+        document.getElementById("leaveType").value;
+
+    const from =
+        document.getElementById("fromDate").value;
+
+    const to =
+        document.getElementById("toDate").value;
+
+    const reason =
+        document.getElementById("leaveReason").value.trim();
+
 
     if (!from || !to || !reason) {
 
@@ -140,176 +625,821 @@ function applyLeave() {
         return;
     }
 
+
     localStorage.setItem("leaveType", type);
     localStorage.setItem("leaveFrom", from);
     localStorage.setItem("leaveTo", to);
     localStorage.setItem("leaveReason", reason);
     localStorage.setItem("leaveStatus", "Pending");
 
+
     document.getElementById("leaveMessage").textContent =
         "Leave request submitted successfully!";
+
 }
 
-function logout() {
 
-    localStorage.removeItem("employeeId");
-    localStorage.removeItem("role");
+/* ================= ADMIN ================= */
 
-    window.location.href = "index.html";
-}
 function showAdminSection(section) {
 
-    const content = document.getElementById("adminContent");
+    const content =
+        document.getElementById("adminContent");
 
-    if (section === "employees") {
+    if (!content) return;
+
+
+    if (section === "overview") {
 
         content.innerHTML = `
-            <h2>Employee Management</h2>
 
-            <div class="profile-info">
+            <div class="page-header">
+                <h1>HR Dashboard</h1>
+                <p>Overview of your workforce.</p>
+            </div>
 
-                <p>
-                    <strong>EMP001</strong><br>
-                    Rahul Sharma<br>
-                    Software Developer
-                </p>
 
-                <p>
-                    <strong>EMP002</strong><br>
-                    Ananya Rao<br>
-                    UI/UX Designer
-                </p>
+            <div class="welcome-card">
+
+                <h1>Good morning, HR Admin 👋</h1>
 
                 <p>
-                    <strong>EMP003</strong><br>
-                    Arjun Kumar<br>
-                    Backend Developer
-                </p>
-
-                <p>
-                    <strong>EMP004</strong><br>
-                    Priya Singh<br>
-                    HR Executive
+                    Manage your workforce, attendance,
+                    leave and payroll from one place.
                 </p>
 
             </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <p>Total Employees</p>
+                    <h2>42</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Present Today</p>
+                    <h2>36</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>On Leave</p>
+                    <h2>2</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Pending Requests</p>
+                    <h2>4</h2>
+                </div>
+
+            </div>
+
+
+            <div class="notification">
+
+                🔔 <strong>Notifications:</strong>
+
+                4 leave requests are waiting
+                for HR approval.
+
+            </div>
+
+
+            <div class="content-card">
+
+                <h2>Today's Attendance</h2>
+
+                <p>
+                    <strong>Attendance Rate: 86%</strong>
+                </p>
+
+                <div class="attendance-bar">
+                    <div class="attendance-progress"></div>
+                </div>
+
+                <p>
+                    36 of 42 employees are present today.
+                </p>
+
+            </div>
+
         `;
 
     }
+
+
+    else if (section === "employees") {
+
+        content.innerHTML = `
+
+            <div class="page-header">
+
+                <h1>Employee Management</h1>
+
+                <p>
+                    Search and manage employee profiles.
+                </p>
+
+            </div>
+
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="employeeSearch"
+                    placeholder="🔎 Search employees..."
+                    onkeyup="searchEmployees()">
+
+            </div>
+
+
+            <div class="employee-grid" id="employeeGrid">
+
+
+                <div class="employee-card"
+                     data-name="Rahul Sharma">
+
+                    <div class="employee-card-top">
+
+                        <div class="avatar">R</div>
+
+                        <div>
+                            <h3>Rahul Sharma</h3>
+                            <p>Software Developer</p>
+                        </div>
+
+                    </div>
+
+                    <div class="employee-info">
+
+                        <div>
+                            <span>ID</span>
+                            <strong>EMP001</strong>
+                        </div>
+
+                        <div>
+                            <span>Department</span>
+                            <strong>Engineering</strong>
+                        </div>
+
+                        <div>
+                            <span>Status</span>
+                            <span class="badge present">
+                                Present
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="employee-card"
+                     data-name="Ananya Rao">
+
+                    <div class="employee-card-top">
+
+                        <div class="avatar">A</div>
+
+                        <div>
+                            <h3>Ananya Rao</h3>
+                            <p>UI/UX Designer</p>
+                        </div>
+
+                    </div>
+
+                    <div class="employee-info">
+
+                        <div>
+                            <span>ID</span>
+                            <strong>EMP002</strong>
+                        </div>
+
+                        <div>
+                            <span>Department</span>
+                            <strong>Design</strong>
+                        </div>
+
+                        <div>
+                            <span>Status</span>
+                            <span class="badge present">
+                                Present
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="employee-card"
+                     data-name="Arjun Kumar">
+
+                    <div class="employee-card-top">
+
+                        <div class="avatar">A</div>
+
+                        <div>
+                            <h3>Arjun Kumar</h3>
+                            <p>Backend Developer</p>
+                        </div>
+
+                    </div>
+
+                    <div class="employee-info">
+
+                        <div>
+                            <span>ID</span>
+                            <strong>EMP003</strong>
+                        </div>
+
+                        <div>
+                            <span>Department</span>
+                            <strong>Engineering</strong>
+                        </div>
+
+                        <div>
+                            <span>Status</span>
+                            <span class="badge absent">
+                                Absent
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="employee-card"
+                     data-name="Priya Singh">
+
+                    <div class="employee-card-top">
+
+                        <div class="avatar">P</div>
+
+                        <div>
+                            <h3>Priya Singh</h3>
+                            <p>HR Executive</p>
+                        </div>
+
+                    </div>
+
+                    <div class="employee-info">
+
+                        <div>
+                            <span>ID</span>
+                            <strong>EMP004</strong>
+                        </div>
+
+                        <div>
+                            <span>Department</span>
+                            <strong>Human Resources</strong>
+                        </div>
+
+                        <div>
+                            <span>Status</span>
+                            <span class="badge leave">
+                                Leave
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="employee-card"
+                     data-name="Vikram Reddy">
+
+                    <div class="employee-card-top">
+
+                        <div class="avatar">V</div>
+
+                        <div>
+                            <h3>Vikram Reddy</h3>
+                            <p>Frontend Developer</p>
+                        </div>
+
+                    </div>
+
+                    <div class="employee-info">
+
+                        <div>
+                            <span>ID</span>
+                            <strong>EMP005</strong>
+                        </div>
+
+                        <div>
+                            <span>Department</span>
+                            <strong>Engineering</strong>
+                        </div>
+
+                        <div>
+                            <span>Status</span>
+                            <span class="badge present">
+                                Present
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="employee-card"
+                     data-name="Sneha Patel">
+
+                    <div class="employee-card-top">
+
+                        <div class="avatar">S</div>
+
+                        <div>
+                            <h3>Sneha Patel</h3>
+                            <p>Marketing Executive</p>
+                        </div>
+
+                    </div>
+
+                    <div class="employee-info">
+
+                        <div>
+                            <span>ID</span>
+                            <strong>EMP006</strong>
+                        </div>
+
+                        <div>
+                            <span>Department</span>
+                            <strong>Marketing</strong>
+                        </div>
+
+                        <div>
+                            <span>Status</span>
+                            <span class="badge present">
+                                Present
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
 
     else if (section === "attendance") {
 
         content.innerHTML = `
-            <h2>Today's Attendance</h2>
 
-            <div class="profile-info">
+            <div class="page-header">
 
-                <p>
-                    <strong>Total Employees</strong><br>
-                    42
-                </p>
+                <h1>Attendance</h1>
 
                 <p>
-                    <strong>Present</strong><br>
-                    36
-                </p>
-
-                <p>
-                    <strong>Absent</strong><br>
-                    4
-                </p>
-
-                <p>
-                    <strong>On Leave</strong><br>
-                    2
+                    Monitor employee attendance and work hours.
                 </p>
 
             </div>
 
-            <h3 style="margin-top:25px;">
-                Attendance Records
-            </h3>
 
-            <p>
-                EMP001 — Rahul Sharma — Present — 09:02 AM
-            </p>
+            <div class="stats-grid">
 
-            <p>
-                EMP002 — Ananya Rao — Present — 09:15 AM
-            </p>
+                <div class="stat-card">
+                    <p>Total Employees</p>
+                    <h2>42</h2>
+                </div>
 
-            <p>
-                EMP003 — Arjun Kumar — Absent
-            </p>
+                <div class="stat-card">
+                    <p>Present</p>
+                    <h2>36</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Absent</p>
+                    <h2>4</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>On Leave</p>
+                    <h2>2</h2>
+                </div>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <h2>Attendance Rate</h2>
+
+                <p>
+                    <strong>86%</strong> of employees are present.
+                </p>
+
+                <div class="attendance-bar">
+
+                    <div class="attendance-progress"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <h2>Today's Records</h2>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Employee</th>
+                                <th>ID</th>
+                                <th>Check In</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>Rahul Sharma</td>
+                                <td>EMP001</td>
+                                <td>09:02 AM</td>
+                                <td>
+                                    <span class="badge present">
+                                        Present
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Ananya Rao</td>
+                                <td>EMP002</td>
+                                <td>09:15 AM</td>
+                                <td>
+                                    <span class="badge present">
+                                        Present
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Arjun Kumar</td>
+                                <td>EMP003</td>
+                                <td>--</td>
+                                <td>
+                                    <span class="badge absent">
+                                        Absent
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Priya Singh</td>
+                                <td>EMP004</td>
+                                <td>--</td>
+                                <td>
+                                    <span class="badge leave">
+                                        Leave
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
         `;
 
     }
+
 
     else if (section === "leave") {
 
         content.innerHTML = `
-            <h2>Leave Requests</h2>
 
-            <div class="profile-info">
+            <div class="page-header">
 
-                <p>
-                    <strong>Rahul Sharma</strong><br>
-                    Paid Leave<br>
-                    24 Aug - 25 Aug<br>
-                    <strong>Status:</strong> Pending
-                </p>
+                <h1>Leave Requests</h1>
 
                 <p>
-                    <strong>Ananya Rao</strong><br>
-                    Sick Leave<br>
-                    23 Aug<br>
-                    <strong>Status:</strong> Pending
+                    Review and approve employee leave requests.
                 </p>
 
             </div>
 
-            <button onclick="approveLeave()">
-                Approve Selected Request
-            </button>
 
-            <p id="leaveApprovalMessage"></p>
+            <div class="notification">
+
+                🔔
+                <strong>4 pending requests</strong>
+                require your attention.
+
+            </div>
+
+
+            <div class="content-card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Employee</th>
+                                <th>Type</th>
+                                <th>Dates</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+                                    <strong>Rahul Sharma</strong>
+                                </td>
+
+                                <td>Paid Leave</td>
+
+                                <td>24 Aug - 25 Aug</td>
+
+                                <td>Personal work</td>
+
+                                <td>
+                                    <span
+                                        id="rahulLeaveStatus"
+                                        class="badge pending">
+                                        Pending
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button
+                                        class="action-btn"
+                                        onclick="approveLeave('rahulLeaveStatus')">
+                                        Approve
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    <strong>Ananya Rao</strong>
+                                </td>
+
+                                <td>Sick Leave</td>
+
+                                <td>23 Aug</td>
+
+                                <td>Not feeling well</td>
+
+                                <td>
+                                    <span
+                                        id="ananyaLeaveStatus"
+                                        class="badge pending">
+                                        Pending
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button
+                                        class="action-btn"
+                                        onclick="approveLeave('ananyaLeaveStatus')">
+                                        Approve
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
         `;
 
     }
+
 
     else if (section === "payroll") {
 
         content.innerHTML = `
-            <h2>Payroll Management</h2>
 
-            <div class="profile-info">
+            <div class="page-header">
 
-                <p>
-                    <strong>Rahul Sharma</strong><br>
-                    Basic: ₹35,000<br>
-                    Allowances: ₹10,000<br>
-                    Net Salary: ₹40,000
-                </p>
+                <h1>Payroll</h1>
 
                 <p>
-                    <strong>Ananya Rao</strong><br>
-                    Basic: ₹38,000<br>
-                    Allowances: ₹8,000<br>
-                    Net Salary: ₹41,000
+                    Manage employee salary information.
                 </p>
 
             </div>
 
-            <p style="margin-top:20px;">
-                Payroll information is managed by HR/Admin.
-            </p>
+
+            <div class="content-card">
+
+                <h2>Salary Table</h2>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Employee</th>
+                                <th>Basic</th>
+                                <th>Allowances</th>
+                                <th>Deductions</th>
+                                <th>Net Salary</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>
+                                    <strong>Rahul Sharma</strong>
+                                </td>
+                                <td>₹35,000</td>
+                                <td>₹10,000</td>
+                                <td>₹5,000</td>
+                                <td class="salary-total">
+                                    ₹40,000
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong>Ananya Rao</strong>
+                                </td>
+                                <td>₹38,000</td>
+                                <td>₹8,000</td>
+                                <td>₹5,000</td>
+                                <td class="salary-total">
+                                    ₹41,000
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong>Arjun Kumar</strong>
+                                </td>
+                                <td>₹40,000</td>
+                                <td>₹7,000</td>
+                                <td>₹5,000</td>
+                                <td class="salary-total">
+                                    ₹42,000
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong>Priya Singh</strong>
+                                </td>
+                                <td>₹32,000</td>
+                                <td>₹8,000</td>
+                                <td>₹4,000</td>
+                                <td class="salary-total">
+                                    ₹36,000
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <div class="content-card">
+
+                <h2>Payroll Summary</h2>
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <p>Total Payroll</p>
+                        <h3>₹1.59L</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Employees</p>
+                        <h3>42</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Processed</p>
+                        <h3>100%</h3>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Payroll Month</p>
+                        <h3>August</h3>
+                    </div>
+
+                </div>
+
+            </div>
+
         `;
+
     }
+
 }
 
 
-function approveLeave() {
+/* ================= SEARCH ================= */
 
-    document.getElementById("leaveApprovalMessage").textContent =
-        "Leave request approved successfully!";
+function searchEmployees() {
+
+    const input =
+        document.getElementById("employeeSearch");
+
+    const cards =
+        document.querySelectorAll(".employee-card");
+
+    const value =
+        input.value.toLowerCase();
+
+
+    cards.forEach(function(card) {
+
+        const name =
+            card.dataset.name.toLowerCase();
+
+        if (name.includes(value)) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* ================= APPROVE LEAVE ================= */
+
+function approveLeave(id) {
+
+    const status =
+        document.getElementById(id);
+
+    if (!status) return;
+
+    status.textContent = "Approved";
+
+    status.className = "badge approved";
+
+    alert("Leave request approved successfully!");
+
+}
+
+
+/* ================= DEFAULT LOAD ================= */
+
+if (document.getElementById("employeeContent")) {
+
+    showEmployeeSection("overview");
+
+}
+
+
+if (document.getElementById("adminContent")) {
+
+    showAdminSection("overview");
+
 }
