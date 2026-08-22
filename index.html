@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dayflow - HRMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-box">
+
+            <h1>Dayflow</h1>
+            <p class="subtitle">Human Resource Management System</p>
+
+            <form id="loginForm">
+
+                <label>Employee ID</label>
+                <input type="text" id="employeeId" placeholder="Enter Employee ID" required>
+
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter Password" required>
+
+                <label>Login As</label>
+                <select id="role">
+                    <option value="employee">Employee</option>
+                    <option value="hr">HR / Admin</option>
+                </select>
+
+                <button type="submit">Login</button>
+
+            </form>
+
+            <p id="loginMessage"></p>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
